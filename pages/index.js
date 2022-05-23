@@ -2,12 +2,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 
-/* function fetchData() { // search by title
-  fetch('https://fakestoreapi.com/products')
-      .then(res=>res.json())
-      .then(data=>showResults(data))
-      .catch(error => {throw(error)})
-} */
+
+// called once at page reload to fetch store data
 export async function getStaticProps() {
   const res = await fetch('https://fakestoreapi.com/products')
   const data = await res.json()
@@ -29,10 +25,11 @@ export default function Home({ data }) {
         {data.map((article) => ( 
           <li key={article.id}>
         
-           <Image alt="Image Unavailable"src={article.image} width={500}
-          height={500}/>
+           <Image alt="Image Unavailable"src={article.image} width={240}
+          height={240}/>
             <h4>{article.title}</h4>
             <h5>{article.price}</h5> 
+      
           </li>
         ))}
       </ul>
