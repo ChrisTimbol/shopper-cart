@@ -1,15 +1,33 @@
-//shows empty shopping cart unless things have been added to it
-//gets data from local storage to show here if none then empty
-/*     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
-        Zip
-      </label>
-      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="90210">
-    </div>
-     */
-
+import { useState, useEffect } from "react";
+import Image from 'next/image'
 export default function cart() {
-  return (
-    <div> Hello </div>
-  )
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => { // get data 
+    setProducts(JSON.parse(localStorage.getItem("products")))
+  }, [])
+
+
+  if (products !== null) {
+    for (let product of products) {
+      return (
+        <div> {/*Create dynamic links based on wahts clicked */}
+          <Image
+            className=""
+            alt="Image Unavailable"
+            src={product.image}
+            width={300}
+            height={300} />
+          <h4 className="text-sm text-gray-700">{product.title}</h4>
+          <h5 className="text-lg font-medium ">${product.price}</h5>
+          <h6 className="no-underline hover:no-underline">{product.rate}/5 of {product.count} Reviews</h6> {/*Add stars to */}
+        </div>
+      )
+      
+    }
+  }
+  else {
+    return <div> Your cart is empty </div>
+  }
+
 }
