@@ -3,17 +3,14 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
-import { MyContext, setContext } from "../pages/_app.js"
-// add addtocart button
-// add more details to page
-// 
+import { getCountContext, setCountContext } from "../pages/_app.js"
 
-// called once at page reload to fetch store data
-export async function getStaticProps() {
+
+
+
+export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
   const data = await res.json()
-
-
   return {
     props: { // will be passed to page component as props
       data, // data is  a local variable in getStaticProps from the fetch
@@ -22,19 +19,23 @@ export async function getStaticProps() {
 }
 
 export default function Home({ data }) {
-  const setCart = useContext(setContext);
-  const cart = useContext(MyContext);
-  const [carter, setCarter] = useState([])
+  const [carter, setCarter] = useState([]) // add to cart list saved here
+
+  
+let setCount = useContext(setCountContext)
+let getCount= useContext(getCountContext)
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
-   // localStorage.clear();
-     if (localStorage.getItem('products') !== null) {
+    // localStorage.clear();
+   // if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
-    } 
+      setCount(JSON.parse(localStorage.getItem('products')).length);
+  //  }
   }, [])
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
     localStorage.setItem('products', JSON.stringify(carter))
+    setCount(JSON.parse(localStorage.getItem('products')).length); //update cart count in navbar
   }, [carter])
 
   return (
@@ -63,7 +64,6 @@ export default function Home({ data }) {
                   </a>
                 </Link>
                 <button onClick={() => {
-                  setCart(cart + 1) //increment navbar counter
                   let productDetails = {
                     image: product.image,
                     id: product.id,
@@ -73,10 +73,9 @@ export default function Home({ data }) {
                     price: product.price
                   }
 
-
                   setCarter([...carter, productDetails]) // adds to end of array carter //carter represents everything up until last iteration
                   console.log(carter)
-        
+
 
                 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   Add To Cart
