@@ -21,12 +21,12 @@ export async function getStaticProps() { // called once at page reload to fetch 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
 
-  
-let setCount = useContext(setCountContext)
-let getCount= useContext(getCountContext)
+
+  let setCount = useContext(setCountContext)
+  let getCount = useContext(getCountContext)
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
-    //localStorage.clear();
+    localStorage.clear();
     if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
       setCount(JSON.parse(localStorage.getItem('products')).length);
@@ -50,7 +50,7 @@ let getCount= useContext(getCountContext)
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data.map((product, i) => (
               <div key={i} className="productContainer">
-  
+
                 <Link href={`/product/${product.id}`}>
                   <a className="hover:opacity-80 hover:underline"> {/*Create dynamic links based on wahts clicked */}
                     <Image
@@ -65,6 +65,7 @@ let getCount= useContext(getCountContext)
                   </a>
                 </Link>
                 <button onClick={() => {
+
                   let productDetails = {
                     image: product.image,
                     id: product.id,
@@ -74,9 +75,17 @@ let getCount= useContext(getCountContext)
                     price: product.price
                   }
 
-                  setCarter([...carter, productDetails]) // adds to end of array carter //carter represents everything up until last iteration
-                  console.log(carter)
-
+                 //let clickCount = 1
+                  let productIsInCart = false
+                  carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
+                    if (x.id === product.id) {
+                     // localStorage.setItem('count', clickCount++)
+                      productIsInCart = true
+                    }
+                  })
+                  if (!productIsInCart) {
+                    setCarter([...carter, productDetails])
+                  }
 
                 }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                   Add To Cart
