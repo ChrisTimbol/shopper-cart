@@ -26,11 +26,11 @@ let setCount = useContext(setCountContext)
 let getCount= useContext(getCountContext)
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
-    // localStorage.clear();
-   // if (localStorage.getItem('products') !== null) {
+    //localStorage.clear();
+    if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
       setCount(JSON.parse(localStorage.getItem('products')).length);
-  //  }
+    }
   }, [])
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
@@ -48,8 +48,9 @@ let getCount= useContext(getCountContext)
         <div className="max-w-2xl mx-auto py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {data.map((product) => (
-              <div key={product.id} className="productContainer">
+            {data.map((product, i) => (
+              <div key={i} className="productContainer">
+  
                 <Link href={`/product/${product.id}`}>
                   <a className="hover:opacity-80 hover:underline"> {/*Create dynamic links based on wahts clicked */}
                     <Image
