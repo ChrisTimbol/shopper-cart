@@ -13,9 +13,7 @@ export default function cart() {
   }, [])
 
   useEffect(() => {
-    if (localStorage.getItem('products') !== null) {
-    setCount(JSON.parse(localStorage.getItem('products')).length)
-    }
+    setCount(JSON.parse(localStorage.getItem('count')))
   })
 
   useEffect(() => {
