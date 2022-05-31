@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import Image from 'next/image'
-import { getCountContext, setCountContext } from "../pages/_app.js"
+import { getCountContext, setCountContext, useRef } from "../pages/_app.js"
 import Dropdown from '../components/Dropdown'
 export default function cart() {
   let getCount = useContext(getCountContext)
@@ -18,13 +18,19 @@ export default function cart() {
 
   useEffect(() => {
     localStorage.setItem("products",JSON.stringify(products))
-    console.log(localStorage.getItem("products"))
+    
   },[products])
-  
+
+
+/*   products.forEach(e => {
+    if(e.id === )
+  })
+ */
   return (
     <div className="Product-Container">
       {products.map((product, i) => {
 
+     
         return (
           <div key={i}>
             <Image
@@ -41,7 +47,7 @@ export default function cart() {
                 setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                
               }}>x</button>
-             <Dropdown qty={product.itemQty} />  
+             <Dropdown value={product.itemQty} products={products} id={product.id}/>  
   
           </div>
         )
