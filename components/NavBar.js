@@ -2,13 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { getCountContext, setCountContext } from "../pages/_app.js"
 
 export default function NavBar() {
-   // const [itemCount, setItemCount] = useState();
+
     let getCount= useContext(getCountContext);
-/*     useEffect(() => {
-        if (localStorage.getItem('products') !== null) {
-            setItemCount(JSON.parse(localStorage.getItem('products')).length) //iterates based
-        }
-    }) */
 
     return (
 

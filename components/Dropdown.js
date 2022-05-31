@@ -16,19 +16,12 @@ export default function Dropdown(props) {
 
     const [previousQty, setPreviousQty] = useState(1); ////////////
 
-
-
-    props.products.map( (e,i) => {
+    props.products.map( (e,i) => { // assigns itemQty based on dropdown selection in cart
         if(e.id === props.id) {
             e.itemQty = selectQty
-         //   props.setCount(props.getCount + select)
         } 
         
     })
-
-     useEffect(() => {
-        console.log("props.total = " + props.total)
-    },[props.total]) 
 
      useEffect(() => {
         localStorage.setItem("products",JSON.stringify(props.products)) 
@@ -37,7 +30,6 @@ export default function Dropdown(props) {
 
     useEffect(() => {
        localStorage.setItem("products",JSON.stringify(props.products)) 
-       localStorage.setItem("count", JSON.stringify(props.getCount))
        props.setProducts(JSON.parse(localStorage.getItem("products"))) // fixes the dropdown not updating after change in cart.js
     }, [selectQty])
 

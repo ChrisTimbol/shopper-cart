@@ -3,38 +3,34 @@ import Image from 'next/image'
 import { getCountContext, setCountContext, useRef } from "../pages/_app.js"
 import Dropdown from '../components/Dropdown'
 
-
-
+//getCount
+//setcount
+//set item
+// get item
+//total
+//set total
 
 
 export default function cart() {
   let getCount = useContext(getCountContext)
   let setCount = useContext(setCountContext)
-  const [products, setProducts] = useState([]);
-
-
+  const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
-  useEffect(() => {
-   // console.log("products.length = " + products.length)
-    
+
+  useEffect(() => { // set count whenever dropdown buttons change or add to cart
+    setCount(total)
   }, [total])
 
 
-
-  useEffect(() => { // get add to cart data initially to create cart
-    setProducts(JSON.parse(localStorage.getItem("products")))
+  useEffect(() => {
+    setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
     setTotal(JSON.parse(localStorage.getItem("products")).length) // assigns total to the # of products in cart initially
   }, [])
-  useEffect(() => { // upload changes to products to storage every change
+
+   // upload changes to products to storage every change
+  useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products))
-
-  }, [products])
-
-  useEffect(() => {  // get navbar count initially
-    setCount(JSON.parse(localStorage.getItem('count')))
-  }, [])
-
-
+}, [products])
 
   return (
     <div className="Page-Container">
@@ -56,13 +52,13 @@ export default function cart() {
                 onClick={() => { //remove product on click of x
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                 }}>x</button>
-              <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setCount={setCount} getCount={getCount} setTotal={setTotal} total={total}/>
+              <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} />
 
             </div>
           )
         })}
       </div>
-      <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full" onClick={() => { 
+      <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full" onClick={() => {
       }}>Checkout</button>
 
 
