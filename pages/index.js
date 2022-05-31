@@ -21,18 +21,18 @@ export async function getStaticProps() { // called once at page reload to fetch 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
 
-  
+
   let setCount = useContext(setCountContext)
   let getCount = useContext(getCountContext)
- // let [clickCount, setClickCount] = useState(0);
+
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
-    //localStorage.clear();
+    localStorage.clear();
     if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
     }
     setCount(JSON.parse(localStorage.getItem('count')));
-  
+
   }, [])
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
@@ -42,8 +42,8 @@ export default function Home({ data }) {
   useEffect(() => { // when getcount is changed then we 
     localStorage.setItem('count', getCount);
 
-  },[getCount]) 
-
+  }, [getCount])
+  let [itemCount, setItemCount] = useState(0);
   return (
     <div className={styles.container}>
       <Head>
@@ -70,29 +70,36 @@ export default function Home({ data }) {
                     <h6 className="no-underline hover:no-underline">{product.rating.rate}/5 of {product.rating.count} Reviews</h6> {/*Add stars to */}
                   </a>
                 </Link>
-                <button onClick={() => {
+                <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={() => {
+                
+                
 
+                 setItemCount(itemCount + 1) // set count then save it into a object productDetails
+                 console.log(itemCount)
+ 
                   let productDetails = {
                     image: product.image,
                     id: product.id,
                     title: product.title,
                     rate: product.rating.rate,
                     count: product.rating.count,
-                    price: product.price
+                    price: product.price,
+                    itemQty: itemCount,
                   }
-
-                 //let clickCount = 1
+      
                   let productIsInCart = false
                   carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
                     if (x.id === product.id) {
                       productIsInCart = true
-                    }})
+                    }
+                  })
+                  // if
                   if (!productIsInCart) {
                     setCarter([...carter, productDetails])
+            
                   }
-                  setCount(getCount+1)
-
-                }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                  setCount(getCount + 1)
+                }} >
                   Add To Cart
                 </button>
               </div>

@@ -6,7 +6,6 @@ export default function cart() {
   let getCount = useContext(getCountContext)
   let setCount = useContext(setCountContext)
   const [products, setProducts] = useState([]);
-  const [qty, setQty] = useState(0);
 
   useEffect(() => { // get data 
     setProducts(JSON.parse(localStorage.getItem("products")))
@@ -14,17 +13,18 @@ export default function cart() {
 
   useEffect(() => {
     setCount(JSON.parse(localStorage.getItem('count')))
+    
   })
 
   useEffect(() => {
     localStorage.setItem("products",JSON.stringify(products))
+    console.log(localStorage.getItem("products"))
   },[products])
-
-
   
   return (
     <div className="Product-Container">
       {products.map((product, i) => {
+
         return (
           <div key={i}>
             <Image
@@ -37,10 +37,11 @@ export default function cart() {
             <h5 className="text-lg font-medium ">${product.price}</h5>
             <h6 className="no-underline hover:no-underline">{product.rate}/5 of {product.count} Reviews</h6> {/*Add stars to */}
             <button className="bg-black-500 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
-              onClick={() => {
+              onClick={() => { //remove product on click of x
                 setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
+               
               }}>x</button>
-             <Dropdown/>  
+             <Dropdown qty={product.itemQty} />  
   
           </div>
         )
