@@ -24,8 +24,16 @@ export default function cart() {
 
   useEffect(() => {
     setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
+    setCount(parseInt(localStorage.getItem('products')).length)
+
     setTotal(JSON.parse(localStorage.getItem("products")).length) // assigns total to the # of products in cart initially
+
+  //  setTotal(getCount)
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('count', getCount);
+  }, [getCount])
 
    // upload changes to products to storage every change
   useEffect(() => {
@@ -64,5 +72,8 @@ export default function cart() {
 
     </div>
   )
-
 }
+
+
+// use total and get price of each product
+// multiply em all and add tax to display 

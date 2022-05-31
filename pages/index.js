@@ -25,28 +25,30 @@ export default function Home({ data }) {
 
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
-  // localStorage.clear();
+   localStorage.clear();
     if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
     }
-  //  setCount(localStorage.getItem('count'));
+    setCount(localStorage.getItem('count'))
 
   }, [])
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
     localStorage.setItem('products', JSON.stringify(carter))
   }, [carter])
-/* 
+
   useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
     localStorage.setItem('count', getCount);
+
   }, [getCount])
- */
+
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Shopping cart</title>
       </Head>
+
       <div className="container mx-auto bg-white">
         <div className="max-w-2xl mx-auto py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>
@@ -75,7 +77,7 @@ export default function Home({ data }) {
                     id: product.id,
                     title: product.title,
                     rate: product.rating.rate,
-                    count: product.rating.count,         
+                    count: product.rating.count,
                   }
                   let productIsInCart = false
                   carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
@@ -86,7 +88,7 @@ export default function Home({ data }) {
 
                   if (!productIsInCart) {
                     setCarter([...carter, productDetails])
-             //       setCount(getCount + 1)
+                    setCount(getCount + 1)
                   }
                 }} >
                   Add To Cart
