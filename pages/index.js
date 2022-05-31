@@ -20,7 +20,6 @@ export async function getStaticProps() { // called once at page reload to fetch 
 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
-  const [itemCount, setItemCount] = useState(0);
   const setCount = useContext(setCountContext)
   const getCount = useContext(getCountContext)
 
@@ -38,9 +37,8 @@ export default function Home({ data }) {
     localStorage.setItem('products', JSON.stringify(carter))
   }, [carter])
 
-  useEffect(() => { // when getcount is changed then we 
+  useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
     localStorage.setItem('count', getCount);
-
   }, [getCount])
 
 
@@ -49,7 +47,6 @@ export default function Home({ data }) {
       <Head>
         <title>Shopping cart</title>
       </Head>
-
       <div className="container mx-auto bg-white">
         <div className="max-w-2xl mx-auto py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>
@@ -72,8 +69,6 @@ export default function Home({ data }) {
                 </Link>
                 <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
                 onClick={() => {
-                 setItemCount(itemCount + 1) // set count then save it into a object productDetails
-                 console.log(itemCount)
  
                   let productDetails = {
                     image: product.image,
@@ -81,8 +76,8 @@ export default function Home({ data }) {
                     title: product.title,
                     rate: product.rating.rate,
                     count: product.rating.count,
+                    itemQty: "1",
                   }
-               
                   let productIsInCart = false
                   carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
                     if (x.id === product.id) {
@@ -92,8 +87,8 @@ export default function Home({ data }) {
 
                   if (!productIsInCart) {
                     setCarter([...carter, productDetails])
+                    setCount(getCount + 1)
                   }
-                  setCount(getCount + 1)
                 }} >
                   Add To Cart
                 </button>

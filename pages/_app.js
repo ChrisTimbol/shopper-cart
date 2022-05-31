@@ -24,3 +24,11 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp
+
+/*
+
+add product total
+clean up code and understand everything properly
+organize shopcart structure
+split into more components
+*/

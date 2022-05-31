@@ -4,25 +4,31 @@ function ChangeFunction() {
        
    } */
 
-import { useEffect, useState } from "react";
+import PreviousMap from "postcss/lib/previous-map";
+import { useEffect, useState, useContext } from "react";
 
    
    
-function handleChange(e) {
-    
-}
-
 
 export default function Dropdown(props) {
     //starts as  value of prop 
     const [selectQty, setSelectQty] = useState(props.value);
 
+    const [previousQty, setPreviousQty] = useState(1); ////////////
+
+
+
     props.products.map( (e,i) => {
         if(e.id === props.id) {
-        e.itemQty = selectQty
-        }
+            e.itemQty = selectQty
+         //   props.setCount(props.getCount + select)
+        } 
         
     })
+
+     useEffect(() => {
+        console.log("props.total = " + props.total)
+    },[props.total]) 
 
      useEffect(() => {
         localStorage.setItem("products",JSON.stringify(props.products)) 
@@ -31,14 +37,30 @@ export default function Dropdown(props) {
 
     useEffect(() => {
        localStorage.setItem("products",JSON.stringify(props.products)) 
-        console.log(props.products)
+       localStorage.setItem("count", JSON.stringify(props.getCount))
+       props.setProducts(JSON.parse(localStorage.getItem("products"))) // fixes the dropdown not updating after change in cart.js
     }, [selectQty])
 
     return (
         <>
         <span>Qty:</span>
-        <select    value={props.value} onChange={ (e) => {
+        <select value={props.itemQty} onChange={ (e) => {
+         
+            // if the previous quantity is smaller then new dropdown value then - that value from teh total
+            if(previousQty < e.target.value) {
+                props.setTotal(props.total - ( previousQty - parseInt(e.target.value)))
+            
+            }
+            // if prev is larger
+            else if (previousQty > e.target.value) {
+                props.setTotal(props.total + ( parseInt(e.target.value) - previousQty))
+            }
+            else {
+                props.setTotal(props.total + parseInt(e.target.value))
+            }
             setSelectQty(e.target.value)
+            setPreviousQty(e.target.value)
+           
         }}>
             <option value='1'>1</option>
             <option value='2'>2</option>
