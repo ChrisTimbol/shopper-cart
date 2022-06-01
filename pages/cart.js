@@ -1,30 +1,34 @@
 import { useState, useContext, useEffect } from "react";
 import Image from 'next/image'
-import { getCountContext, setCountContext, useRef } from "../pages/_app.js"
+import { getTotalContext, setTotalContext, useRef } from "../pages/_app.js"
 import Dropdown from '../components/Dropdown'
-
+import { useBeforeunload } from 'react-beforeunload';
 export default function cart() {
 
-  let total = useContext(getCountContext)
-  let setTotal = useContext(setCountContext)
+  let total = useContext(getTotalContext)
+  let setTotal = useContext(setTotalContext)
   const [products, setProducts] = useState([])
+
+  useBeforeunload(() => {
+    localStorage.setItem("products", JSON.stringify(products))
+  })
 
   useEffect(() => {
    // localStorage.clear();
     setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
+   // localStorage.setItem("products", JSON.stringify(products)) // save products just in case window close
 
     console.log(JSON.parse(localStorage.getItem("products")))
-   // if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
-  //    setTotal(JSON.parse(localStorage.getItem("products")).length)
- //   }
-//    else {   // setCount(localStorage.getItem('count'))
+    if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
+      setTotal(JSON.parse(localStorage.getItem("products")).length)
+    }
+    else {   
       setTotal(localStorage.getItem('count'))
-   // } 
+    } 
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('count', total);
-    //localStorage.setItem("products", JSON.stringify(products))
+    localStorage.setItem('count', total) // stores total for navbar after every change in dropdown etc
   }, [total])
 
 

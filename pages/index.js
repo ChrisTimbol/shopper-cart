@@ -3,10 +3,7 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
-import { getCountContext, setCountContext } from "../pages/_app.js"
-
-
-
+import { getTotalContext, setTotalContext } from "../pages/_app.js"
 
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
@@ -20,27 +17,29 @@ export async function getStaticProps() { // called once at page reload to fetch 
 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
-  const setCount = useContext(setCountContext)
-  const getCount = useContext(getCountContext)
-
+  const setTotal = useContext(setTotalContext)
+  const getTotal = useContext(getTotalContext)
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
    localStorage.clear();
     if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
     }
-    setCount(localStorage.getItem('count'))
-
+    if(localStorage.getItem('count') !== null) {
+      setTotal(localStorage.getItem('count'))
+      }
   }, [])
+
+
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
     localStorage.setItem('products', JSON.stringify(carter))
   }, [carter])
 
   useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
-    localStorage.setItem('count', getCount);
+    localStorage.setItem('count', getTotal);
 
-  }, [getCount])
+  }, [getTotal])
 
 
   return (
@@ -89,7 +88,7 @@ export default function Home({ data }) {
 
                   if (!productIsInCart) {
                     setCarter([...carter, productDetails])
-                    setCount(getCount + 1)
+                    setTotal(getTotal + 1)
                   }
                 }} >
                   Add To Cart

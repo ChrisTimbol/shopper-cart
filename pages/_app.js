@@ -4,21 +4,21 @@ import Footer from '../components/Footer'
 import React, { useState, useContext, createContext } from 'react'
 
 
-export const getCountContext = createContext();
-export const setCountContext = createContext();
+export const getTotalContext = createContext();
+export const setTotalContext = createContext();
 function MyApp({ Component, pageProps }) {
  // const [getCount, setCount] = useState(0);
   const [total, setTotal] = useState(0)
   return (
 
     <>
-      <getCountContext.Provider value={total}>
-        <setCountContext.Provider value={setTotal}>
+      <getTotalContext.Provider value={total}>
+        <setTotalContext.Provider value={setTotal}>
           <NavBar />
           <Component {...pageProps} />
           <Footer />
-        </setCountContext.Provider>
-      </getCountContext.Provider>
+        </setTotalContext.Provider>
+      </getTotalContext.Provider>
     </>
   )
 }
