@@ -54,6 +54,7 @@ export default function cart() {
               <h6 className="no-underline hover:no-underline">{product.rate}/5 of {product.count} Reviews</h6> {/*Add stars to */}
               <button className="bg-black-500 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
                 onClick={() => { //remove product on click of x
+                  setTotal(total-product.itemQty) // removed item qty from total
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                 }}>x</button>
               <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} /> 
