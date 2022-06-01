@@ -9,9 +9,11 @@ export default function cart() {
   let setTotal = useContext(setTotalContext)
   const [products, setProducts] = useState([])
   const [sum, setSum] = useState(0)
-  /*   const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price */
-  const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0)
+  const [thePrice, setThePrice] = useState(0);
+     const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price 
+//  const prices = products.map((x) => x.price) // array containing prices of each product
 
+  const qtyButtonRef = useRef(null);
 
   useEffect(() => {
     // localStorage.clear();
@@ -27,7 +29,7 @@ export default function cart() {
   useEffect(() => {  // upload changes to products to storage every change
     localStorage.setItem("products", JSON.stringify(products))
     setSum(prices) // 
-    console.log(products)
+
   }, [products])
   return (
     <div className="Page-Container">
@@ -49,14 +51,16 @@ export default function cart() {
                 onClick={() => { //remove product on click of x
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                   setTotal(total - 1)
+          
                   //     setTotal(total-product.itemQty) // removed item qty from total
                 }}>x</button>
-              <QtyButton product={product} setTotal={setTotal} total={total} />
-      
+              <QtyButton prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
+
             </div>
           )
         })}
-        <div>Subtotal: ${sum}</div>
+        <div>Subtotal: ${thePrice.toFixed(2)}</div>
+        <button className="bg-green-500 hover:bg-gray-400 font-bold py-2 px-4" onClick={() => { console.log(thePrice) }}>Calc</button> 
       </div>
       <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full">Checkout</button>
     </div>
