@@ -75,6 +75,7 @@ export default function Home({ data }) {
                     image: product.image,
                     id: product.id,
                     title: product.title,
+                    price: product.price,
                     rate: product.rating.rate,
                     count: product.rating.count,
                     itemQty: product.itemQty

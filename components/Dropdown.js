@@ -22,18 +22,20 @@ export default function Dropdown(props) {
         <>
             <span>Qty:</span>
             <select value={props.itemQty} onChange={(e) => {
+
                 // if the previous quantity is smaller then new dropdown value then - that value from teh total
                 if (previousQty < e.target.value) {
-                    props.setTotal(props.total - (previousQty - parseInt(e.target.value)))
+                    props.setTotal(parseInt(props.total) - (previousQty - parseInt(e.target.value)))
 
                 }
                 // if prev is larger
                 else if (previousQty > e.target.value) {
-                    props.setTotal(props.total + (parseInt(e.target.value) - previousQty))
+                    props.setTotal(parseInt(props.total) + (parseInt(e.target.value) - previousQty))
                 }
                 else {
-                    props.setTotal(props.total + parseInt(e.target.value))
+                    props.setTotal(parseInt(props.total) + parseInt(e.target.value))
                 }
+                //   props.setTotal(parseInt(props.total) + parseInt(e.target.value))
                 setSelectQty(e.target.value)
                 setPreviousQty(e.target.value)
             }}>

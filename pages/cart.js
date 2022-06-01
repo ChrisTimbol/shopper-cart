@@ -8,23 +8,14 @@ export default function cart() {
   let total = useContext(getTotalContext)
   let setTotal = useContext(setTotalContext)
   const [products, setProducts] = useState([])
+  const [sum, setSum] = useState(0)
 
-  useBeforeunload(() => {
-    localStorage.setItem("products", JSON.stringify(products))
-  })
+  const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price
 
   useEffect(() => {
-   // localStorage.clear();
+    // localStorage.clear();
     setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
-   // localStorage.setItem("products", JSON.stringify(products)) // save products just in case window close
-
-    console.log(JSON.parse(localStorage.getItem("products")))
-    if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
-      setTotal(JSON.parse(localStorage.getItem("products")).length)
-    }
-    else {   
-      setTotal(localStorage.getItem('count'))
-    } 
+    localStorage.getItem('count') === 0 ? setTotal(JSON.parse(localStorage.getItem("products")).length) : setTotal(localStorage.getItem('count')) // return length if no count total
   }, [])
 
   useEffect(() => {
@@ -34,13 +25,16 @@ export default function cart() {
 
   useEffect(() => {  // upload changes to products to storage every change
     localStorage.setItem("products", JSON.stringify(products))
+    setSum(prices) // 
   }, [products])
+
+
 
   return (
     <div className="Page-Container">
       <div className="Product-Container">
         {products.map((product, i) => {
-          
+
           return (
             <div key={i}>
               <Image
@@ -54,16 +48,22 @@ export default function cart() {
               <h6 className="no-underline hover:no-underline">{product.rate}/5 of {product.count} Reviews</h6> {/*Add stars to */}
               <button className="bg-black-500 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
                 onClick={() => { //remove product on click of x
-                  setTotal(total-product.itemQty) // removed item qty from total
+
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
+                  setTotal(total - 1)
+                  //     setTotal(total-product.itemQty) // removed item qty from total
                 }}>x</button>
-              <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} /> 
+              {/*               <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} /> */}
+               <div>Subtotal: ${sum}</div> 
 
             </div>
           )
         })}
       </div>
       <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full" onClick={() => {
+
+        console.log(sum)
+
       }}>Checkout</button>
 
 
