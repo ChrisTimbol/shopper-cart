@@ -10,20 +10,21 @@ export default function cart() {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
+   // localStorage.clear();
     setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
 
-
-    if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
-      setTotal(JSON.parse(localStorage.getItem("products")).length)
-    }
-    else {   // setCount(localStorage.getItem('count'))
+    console.log(JSON.parse(localStorage.getItem("products")))
+   // if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
+  //    setTotal(JSON.parse(localStorage.getItem("products")).length)
+ //   }
+//    else {   // setCount(localStorage.getItem('count'))
       setTotal(localStorage.getItem('count'))
-    }
+   // } 
   }, [])
 
   useEffect(() => {
     localStorage.setItem('count', total);
-    localStorage.setItem("products", JSON.stringify(products))
+    //localStorage.setItem("products", JSON.stringify(products))
   }, [total])
 
 
@@ -35,7 +36,7 @@ export default function cart() {
     <div className="Page-Container">
       <div className="Product-Container">
         {products.map((product, i) => {
-
+          
           return (
             <div key={i}>
               <Image
@@ -51,7 +52,7 @@ export default function cart() {
                 onClick={() => { //remove product on click of x
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                 }}>x</button>
-              <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} />
+              <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} /> 
 
             </div>
           )

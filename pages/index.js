@@ -57,7 +57,7 @@ export default function Home({ data }) {
               <div key={i} className="productContainer">
 
                 <Link href={`/product/${product.id}`}>
-                  <a className="hover:opacity-80 hover:underline"> {/*Create dynamic links based on wahts clicked */}
+                  <a className="hover:opacity-80 hover:underline"> {/*Create dynamic links based on whats clicked */}
                     <Image
                       className=""
                       alt="Image Unavailable"
@@ -78,6 +78,7 @@ export default function Home({ data }) {
                     title: product.title,
                     rate: product.rating.rate,
                     count: product.rating.count,
+                    itemQty: product.itemQty
                   }
                   let productIsInCart = false
                   carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
