@@ -23,10 +23,10 @@ export default function Dropdown(props) {
         
     })
 
-     useEffect(() => {
+/*      useEffect(() => {
         localStorage.setItem("products",JSON.stringify(props.products)) 
 
-    }, []) 
+    }, []) */ 
 
     useEffect(() => {
        localStorage.setItem("products",JSON.stringify(props.products)) 
@@ -37,7 +37,6 @@ export default function Dropdown(props) {
         <>
         <span>Qty:</span>
         <select value={props.itemQty} onChange={ (e) => {
-         
             // if the previous quantity is smaller then new dropdown value then - that value from teh total
             if(previousQty < e.target.value) {
                 props.setTotal(props.total - ( previousQty - parseInt(e.target.value)))
@@ -51,8 +50,7 @@ export default function Dropdown(props) {
                 props.setTotal(props.total + parseInt(e.target.value))
             }
             setSelectQty(e.target.value)
-            setPreviousQty(e.target.value)
-           
+            setPreviousQty(e.target.value) 
         }}>
             <option value='1'>1</option>
             <option value='2'>2</option>

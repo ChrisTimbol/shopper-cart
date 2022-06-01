@@ -7,13 +7,13 @@ import React, { useState, useContext, createContext } from 'react'
 export const getCountContext = createContext();
 export const setCountContext = createContext();
 function MyApp({ Component, pageProps }) {
-  const [getCount, setCount] = useState(0);
-
+ // const [getCount, setCount] = useState(0);
+  const [total, setTotal] = useState(0)
   return (
 
     <>
-      <getCountContext.Provider value={getCount}>
-        <setCountContext.Provider value={setCount}>
+      <getCountContext.Provider value={total}>
+        <setCountContext.Provider value={setTotal}>
           <NavBar />
           <Component {...pageProps} />
           <Footer />

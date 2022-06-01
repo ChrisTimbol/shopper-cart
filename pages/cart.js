@@ -3,42 +3,33 @@ import Image from 'next/image'
 import { getCountContext, setCountContext, useRef } from "../pages/_app.js"
 import Dropdown from '../components/Dropdown'
 
-//getCount
-//setcount
-//set item
-// get item
-//total
-//set total
-
-
 export default function cart() {
-  let getCount = useContext(getCountContext)
-  let setCount = useContext(setCountContext)
+
+  let total = useContext(getCountContext)
+  let setTotal = useContext(setCountContext)
   const [products, setProducts] = useState([])
-  const [total, setTotal] = useState(0)
-
-  useEffect(() => { // set count whenever dropdown buttons change or add to cart
-    setCount(total)
-  }, [total])
-
 
   useEffect(() => {
     setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
-    setCount(parseInt(localStorage.getItem('products')).length)
 
-    setTotal(JSON.parse(localStorage.getItem("products")).length) // assigns total to the # of products in cart initially
 
-  //  setTotal(getCount)
+    if (localStorage.getItem('count') === 0) { // if no localstorage then set total to this
+      setTotal(JSON.parse(localStorage.getItem("products")).length)
+    }
+    else {   // setCount(localStorage.getItem('count'))
+      setTotal(localStorage.getItem('count'))
+    }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('count', getCount);
-  }, [getCount])
-
-   // upload changes to products to storage every change
-  useEffect(() => {
+    localStorage.setItem('count', total);
     localStorage.setItem("products", JSON.stringify(products))
-}, [products])
+  }, [total])
+
+
+  useEffect(() => {  // upload changes to products to storage every change
+    localStorage.setItem("products", JSON.stringify(products))
+  }, [products])
 
   return (
     <div className="Page-Container">
