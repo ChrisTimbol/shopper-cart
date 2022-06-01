@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { useBeforeunload } from 'react-beforeunload';
 
 
-
+    {/*               <Dropdown itemQty={product.itemQty} products={products} setProducts={setProducts} id={product.id} setTotal={setTotal} total={total} /> */}
 export default function Dropdown(props) {
     const [selectQty, setSelectQty] = useState(props.value)
     const [previousQty, setPreviousQty] = useState(1)

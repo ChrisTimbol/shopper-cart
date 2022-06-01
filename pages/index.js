@@ -8,6 +8,7 @@ import { getTotalContext, setTotalContext } from "../pages/_app.js"
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
   const data = await res.json()
+
   return {
     props: { // will be passed to page component as props
       data, // data is  a local variable in getStaticProps from the fetch
@@ -15,13 +16,15 @@ export async function getStaticProps() { // called once at page reload to fetch 
   }
 }
 
-export default function Home({ data }) {
+export default function Home({ data}) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
   const setTotal = useContext(setTotalContext)
   const getTotal = useContext(getTotalContext)
 
   useEffect(() => { // at initial launch get products from local storage and store in carter
    localStorage.clear();
+
+
     if (localStorage.getItem('products') !== null) {
       setCarter(JSON.parse(localStorage.getItem('products')))
     }
@@ -34,6 +37,7 @@ export default function Home({ data }) {
 
   useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
     localStorage.setItem('products', JSON.stringify(carter))
+    
   }, [carter])
 
   useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
@@ -89,7 +93,7 @@ export default function Home({ data }) {
 
                   if (!productIsInCart) {
                     setCarter([...carter, productDetails])
-                    setTotal(getTotal + 1)
+                    setTotal(parseInt(getTotal) + 1)
                   }
                 }} >
                   Add To Cart
