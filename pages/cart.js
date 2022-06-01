@@ -9,7 +9,8 @@ export default function cart() {
   let setTotal = useContext(setTotalContext)
   const [products, setProducts] = useState([])
   const [sum, setSum] = useState(0)
-  const [thePrice, setThePrice] = useState(0);
+  const [thePrice, setThePrice] = useState(0); // the subtotal
+
      const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price 
 //  const prices = products.map((x) => x.price) // array containing prices of each product
 
@@ -51,10 +52,10 @@ export default function cart() {
                 onClick={() => { //remove product on click of x
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                   setTotal(total - 1)
-          
+                  setThePrice(thePrice - product.price)
                   //     setTotal(total-product.itemQty) // removed item qty from total
                 }}>x</button>
-              <QtyButton prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
+              <QtyButton  prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
 
             </div>
           )
