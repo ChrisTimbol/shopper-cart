@@ -49,13 +49,13 @@ export default function cart() {
               <h5 className="text-lg font-medium ">${product.price}</h5>
               <h6 className="no-underline hover:no-underline">{product.rate}/5 of {product.count} Reviews</h6> {/*Add stars to */}
               <button className="bg-black-500 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
-                onClick={() => { //remove product on click of x
+/*                 onClick={() => { //remove product on click of x
                   setProducts(products.filter((x) => x.id !== product.id))//filters out by product id clicked
                   setTotal(total - 1)
                   setThePrice(thePrice - product.price)
                   //     setTotal(total-product.itemQty) // removed item qty from total
-                }}>x</button>
-              <QtyButton  prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
+                }} */>x</button>
+              <QtyButton  setProducts={setProducts} products={products} prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
 
             </div>
           )
