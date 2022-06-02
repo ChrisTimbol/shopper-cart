@@ -11,8 +11,8 @@ export default function cart() {
   const [sum, setSum] = useState(0)
   const [thePrice, setThePrice] = useState(0); // the subtotal
 
-     const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price 
-//  const prices = products.map((x) => x.price) // array containing prices of each product
+  const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0) // use to calculate total price 
+  //  const prices = products.map((x) => x.price) // array containing prices of each product
 
   const qtyButtonRef = useRef(null);
 
@@ -26,7 +26,12 @@ export default function cart() {
     localStorage.setItem('count', total) // stores total for navbar after every change in dropdown etc
   }, [total])
 
-
+  useEffect(() => {
+    if (thePrice < 0 ) {
+      setThePrice(0)
+    }
+    
+  })
   useEffect(() => {  // upload changes to products to storage every change
     localStorage.setItem("products", JSON.stringify(products))
     setSum(prices) // 
@@ -35,10 +40,18 @@ export default function cart() {
   return (
     <div className="Page-Container">
       <div className="Product-Container">
-        {products.map((product, i) => {
+        {products.map((product, index) => {
+    //      product.itemQty = 1
+/* 
+            var next = products[index]
 
+           if(parseInt(index+1 ) === products.length) {
+            next = products[index]
+      
+          }  
+           */
           return (
-            <div key={i}>
+            <div key={index}>
               <Image
                 className=""
                 alt="Image Unavailable"
@@ -55,13 +68,13 @@ export default function cart() {
                   setThePrice(thePrice - product.price)
                   //     setTotal(total-product.itemQty) // removed item qty from total
                 }} */>x</button>
-              <QtyButton  setProducts={setProducts} products={products} prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
-
+              <QtyButton next={next} setProducts={setProducts} products={products} prices={prices} thePrice={thePrice} setThePrice={setThePrice} ref={qtyButtonRef} product={product} setTotal={setTotal} total={total} />
+              {/*           <h5 className="text-lg font-medium ">{product.itemQty}</h5> */}
             </div>
           )
         })}
         <div>Subtotal: ${thePrice.toFixed(2)}</div>
-        <button className="bg-green-500 hover:bg-gray-400 font-bold py-2 px-4" onClick={() => { console.log(thePrice) }}>Calc</button> 
+        <button className="bg-green-500 hover:bg-gray-400 font-bold py-2 px-4" onClick={() => { console.log(thePrice) }}>Calc</button>
       </div>
       <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full">Checkout</button>
     </div>
