@@ -21,7 +21,9 @@ export default function Home({ data}) {
   const setTotal = useContext(setTotalContext)
   const getTotal = useContext(getTotalContext)
 
+  // This function run when we click add to cart button
   const addToCart = (product) => {
+
     let productDetails = {
       image: product.image,
       id: product.id,
@@ -31,8 +33,14 @@ export default function Home({ data}) {
       price: product.price,
       qty: 1,
     };
+
+    // Check if product already exist in cart
     const productExist = carter.find((x) => x.id === productDetails.id);
+
     if (productExist) {
+      // if product is already present
+
+      // update the quantity of product
       setCarter(
         carter.map((x) =>
           x.id === productExist.id
@@ -40,7 +48,9 @@ export default function Home({ data}) {
             : x
         )
       );
+
     } else {
+      // if product is not present, then add it in cart
       setCarter([...carter, { ...productDetails, qty: 1 }]);
     }
   }

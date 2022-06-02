@@ -11,33 +11,9 @@ export default function cart() {
   const [thePrice, setThePrice] = useState(0); // the subtotal
   const [subTotal, setSubTotal] = useState(0); // the subtotal
 
-  // const prices = products.map((x) => x.price).reduce((a, b) => a + b, 0); // use to calculate total price
-  //  const prices = products.map((x) => x.price) // array containing prices of each product
-
   const qtyButtonRef = useRef(null);
 
-  // useEffect(() => {
-  //   // localStorage.clear();
-  //   setProducts(JSON.parse(localStorage.getItem("products"))) // get add to cart data initially to create cart
-  //   localStorage.getItem('count') === 0 ? setTotal(JSON.parse(localStorage.getItem("products")).length) : setTotal(localStorage.getItem('count')) // return length if no count total
-  // }, [])
-
-  // useEffect(() => {
-  //   localStorage.setItem('count', total) // stores total for navbar after every change in dropdown etc
-  // }, [total])
-
-  // useEffect(() => {
-  //   if (thePrice < 0 ) {
-  //     setThePrice(0)
-  //   }
-
-  // })
-  // useEffect(() => {  // upload changes to products to storage every change
-  //   localStorage.setItem("products", JSON.stringify(products))
-  //   setSum(prices) //
-
-  // }, [products])
-
+  // Change the qty of particular product
   const changeQty = (item, qty) => {
     setProducts(
       products.map((x) =>
@@ -51,19 +27,15 @@ export default function cart() {
     setProducts(JSON.parse(localStorage.getItem("products")));
   }, []);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('products') !== null) {
-  //   setCount(JSON.parse(localStorage.getItem('products')).length)
-  //   }
-  // })
-
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
     setTotal(products.length);
   }, [products]);
 
+  // Calculate subtotal whenever there is change in cart
   useEffect(() => {
     setSubTotal(
+      // Multiply all product's price with product's quantity and add
       products
         .map((item) => item.qty * item.price)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
@@ -113,20 +85,10 @@ export default function cart() {
                 x
               </button>
               <QtyButton
+                // Pass product and change qty function
                 product={product}
                 changeQty={changeQty}
-                // next={next}
-                // setProducts={setProducts}
-                // products={products}
-                // prices={prices}
-                // thePrice={thePrice}
-                // setThePrice={setThePrice}
-                // ref={qtyButtonRef}
-                // product={product}
-                // setTotal={setTotal}
-                // total={total}
               />
-              {/*           <h5 className="text-lg font-medium ">{product.itemQty}</h5> */}
             </div>
           );
         })}
