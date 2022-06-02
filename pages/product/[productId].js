@@ -5,13 +5,7 @@ export default function Product({ product }) {
   return (
     <div className="flex flex-col" >
       <div className="flex mx-auto h-5/6 w-9/12 border-8 border-red-500" key={product.id} href="#"> {/*Create dynamic links based on wahts clicked */}
-     
-
-
-      { //this
-      }
           <img class="object-cover max-w-full h-auto" src={product.image}></img>
-
         <div className="AllText border-8 border-blue-500 ">
           <h4 className="mt-4 text-xl font-medium text-black-900">{product.title}</h4>
           <h5 className="mt-1 text-lg font-medium text-gray-900">${product.price}</h5>
