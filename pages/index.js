@@ -16,34 +16,57 @@ export async function getStaticProps() { // called once at page reload to fetch 
   }
 }
 
-export default function Home({ data}) {
+export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
   const setTotal = useContext(setTotalContext)
   const getTotal = useContext(getTotalContext)
 
-  useEffect(() => { // at initial launch get products from local storage and store in carter
-   localStorage.clear();
+  // This function run when we click add to cart button
+  const addToCart = (product) => {
 
+    let productDetails = {
+      image: product.image,
+      id: product.id,
+      title: product.title,
+      rate: product.rating.rate,
+      count: product.rating.count,
+      price: product.price,
+      qty: 1,
+    };
 
-    if (localStorage.getItem('products') !== null) {
-      setCarter(JSON.parse(localStorage.getItem('products')))
+    // Check if product already exist in cart
+    const productExist = carter.find((x) => x.id === productDetails.id);
+
+    if (productExist) {
+      // if product is already present
+      // update the quantity of product
+      setCarter(
+        carter.map((x) =>
+          x.id === productExist.id
+            ? { ...productExist, qty: productExist.qty + 1 }
+            : x
+        )
+      )
+    } else {
+      // if product is not present, then add it in cart
+      setCarter([...carter, { ...productDetails, qty: 1 }]);
     }
-    if(localStorage.getItem('count') !== null) {
-      setTotal(localStorage.getItem('count'))
-      }
-  }, [])
+  }
 
 
+  useEffect(() => {
+    // at initial launch get products from local storage and store in carter
+    // localStorage.clear();
+    if (localStorage.getItem("products") !== null) {
+      setCarter(JSON.parse(localStorage.getItem("products")));
+    }
+  }, []);
 
-  useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
-    localStorage.setItem('products', JSON.stringify(carter))
-    
-  }, [carter])
-
-  useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
-    localStorage.setItem('count', getTotal);
-
-  }, [getTotal])
+  useEffect(() => {
+    // anytime there is a change to carter i want it to update the localstorage with carter
+    localStorage.setItem("products", JSON.stringify(carter));
+    setTotal(carter.length) // when cart update settotal
+  }, [carter]);
 
 
   return (
@@ -72,30 +95,8 @@ export default function Home({ data}) {
                     <h6 className="no-underline hover:no-underline">{product.rating.rate}/5 of {product.rating.count} Reviews</h6> {/*Add stars to */}
                   </a>
                 </Link>
-                <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
-                onClick={() => {
- 
-                  let productDetails = {
-                    image: product.image,
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    rate: product.rating.rate,
-                    count: product.rating.count,
-                    itemQty: product.itemQty
-                  }
-                  let productIsInCart = false
-                  carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
-                    if (x.id === product.id) {
-                      productIsInCart = true
-                    }
-                  })
-
-                  if (!productIsInCart) {
-                    setCarter([...carter, productDetails])
-                    setTotal(parseInt(getTotal) + 1)
-                  }
-                }} >
+                <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+                  onClick={() => addToCart(product)} >
                   Add To Cart
                 </button>
               </div>
