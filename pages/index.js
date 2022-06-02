@@ -21,31 +21,46 @@ export default function Home({ data}) {
   const setTotal = useContext(setTotalContext)
   const getTotal = useContext(getTotalContext)
 
-  useEffect(() => { // at initial launch get products from local storage and store in carter
-   localStorage.clear();
-
-
-    if (localStorage.getItem('products') !== null) {
-      setCarter(JSON.parse(localStorage.getItem('products')))
+  const addToCart = (product) => {
+    let productDetails = {
+      image: product.image,
+      id: product.id,
+      title: product.title,
+      rate: product.rating.rate,
+      count: product.rating.count,
+      price: product.price,
+      qty: 1,
+    };
+    const productExist = carter.find((x) => x.id === productDetails.id);
+    if (productExist) {
+      setCarter(
+        carter.map((x) =>
+          x.id === productExist.id
+            ? { ...productExist, qty: productExist.qty + 1 }
+            : x
+        )
+      );
+    } else {
+      setCarter([...carter, { ...productDetails, qty: 1 }]);
     }
-    if(localStorage.getItem('count') !== null) {
-      setTotal(localStorage.getItem('count'))
+  }
+
+
+    useEffect(() => {
+      // at initial launch get products from local storage and store in carter
+      // localStorage.clear();
+      if (localStorage.getItem("products") !== null) {
+        setCarter(JSON.parse(localStorage.getItem("products")));
       }
-  }, [])
+    }, []);
+  
+    useEffect(() => {
+      // anytime there is a change to carter i want it to update the localstorage with carter
+      localStorage.setItem("products", JSON.stringify(carter));
+      setTotal(carter.length)
+    }, [carter]);
 
-
-
-  useEffect(() => { // anytime there is a change to carter i want it to update the localstorage with carter
-    localStorage.setItem('products', JSON.stringify(carter))
     
-  }, [carter])
-
-  useEffect(() => { // when getcount is changed then we want to rerender it on main shop page
-    localStorage.setItem('count', getTotal);
-
-  }, [getTotal])
-
-
   return (
     <div className={styles.container}>
       <Head>
@@ -73,29 +88,7 @@ export default function Home({ data}) {
                   </a>
                 </Link>
                 <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
-                onClick={() => {
- 
-                  let productDetails = {
-                    image: product.image,
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    rate: product.rating.rate,
-                    count: product.rating.count,
-                    itemQty: product.itemQty
-                  }
-                  let productIsInCart = false
-                  carter.forEach(x => {    //if the product is already in your cart then add to qty dropdown in cart 
-                    if (x.id === product.id) {
-                      productIsInCart = true
-                    }
-                  })
-
-                  if (!productIsInCart) {
-                    setCarter([...carter, productDetails])
-                    setTotal(parseInt(getTotal) + 1)
-                  }
-                }} >
+                onClick={() => addToCart(product)} >
                   Add To Cart
                 </button>
               </div>
