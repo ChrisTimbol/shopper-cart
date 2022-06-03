@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
-import { getTotalContext, setTotalContext } from "../pages/_app.js"
+import { setTotalContext } from "../pages/_app.js"
 
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
@@ -19,7 +19,6 @@ export async function getStaticProps() { // called once at page reload to fetch 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
   const setTotal = useContext(setTotalContext)
-  const getTotal = useContext(getTotalContext)
 
   // This function run when we click add to cart button
   const addToCart = (product) => {
@@ -53,7 +52,6 @@ export default function Home({ data }) {
     }
   }
 
-
   useEffect(() => {
     // at initial launch get products from local storage and store in carter
     // localStorage.clear();
@@ -68,13 +66,11 @@ export default function Home({ data }) {
     setTotal(carter.length) // when cart update settotal
   }, [carter]);
 
-
   return (
     <div className={styles.container}>
       <Head>
         <title>Shopping cart</title>
       </Head>
-
       <div className="container mx-auto bg-white">
         <div className="max-w-2xl mx-auto py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>

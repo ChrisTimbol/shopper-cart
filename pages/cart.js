@@ -1,13 +1,11 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import Image from "next/image";
-import { getTotalContext, setTotalContext } from "../pages/_app.js";
-import Dropdown from "../components/Dropdown";
+import { setTotalContext } from "../pages/_app.js";
 import QtyButton from "../components/QtyButton";
 export default function cart() {
   let setTotal = useContext(setTotalContext);
   const [products, setProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0); // the subtotal
-
 
   // Change the qty of particular product
   const changeQty = (item, qty) => {
@@ -15,18 +13,18 @@ export default function cart() {
       products.map((e) =>
         e.id === item.id ? { ...item, qty: parseInt(qty) } : e
       )
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     // get data
     setProducts(JSON.parse(localStorage.getItem("products")));
-  }, []);
+  }, [])
 
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
-    setTotal(products.length);
-  }, [products]);
+    setTotal(products.length)
+  }, [products])
 
   // Calculate subtotal whenever there is change in cart
   useEffect(() => {
@@ -35,8 +33,8 @@ export default function cart() {
       products
         .map((item) => item.qty * item.price)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-    );
-  }, [products]);
+    )
+  }, [products])
 
   return (
     <div className="Page-Container">
@@ -68,13 +66,15 @@ export default function cart() {
                 changeQty={changeQty}
               />
             </div>
-          );
+          )
         })}
-        <div>Subtotal: ${subTotal.toFixed(2)}</div>
       </div>
-      <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full">
+      <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full"
+      onClick={() => {
+        alert("Subtotal: $" + subTotal.toFixed(2))
+      }}>
         Checkout
       </button>
     </div>
-  );
+  )
 }
