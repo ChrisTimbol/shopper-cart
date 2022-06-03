@@ -42,6 +42,11 @@ export default function cart() {
         {products.map((product, index) => {
           return (
             <div key={index}>
+                            <button
+                className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
+                onClick={() => {
+                  setProducts(products.filter((x) => x.id !== product.id)); //filters out by product id clicked
+                }}>x</button>
               <Image
                 className=""
                 alt="Image Unavailable"
@@ -55,17 +60,15 @@ export default function cart() {
                 {product.rate}/5 of {product.count} Reviews
               </h6>{" "}
               {/*Add stars to */}
-              <button
-                className="bg-black-500 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
-                onClick={() => {
-                  setProducts(products.filter((x) => x.id !== product.id)); //filters out by product id clicked
-                }}>x</button>
-              <QtyButton
+     
+
+             <QtyButton className="block "
                 // Pass product and change qty function
                 product={product}
                 changeQty={changeQty}
               />
             </div>
+
           )
         })}
       </div>

@@ -86,12 +86,12 @@ export default function Home({ data }) {
                       src={product.image}
                       width={300}
                       height={300} />
-                    <h4 className="text-sm text-gray-700">{product.title}</h4>
+                    <h4 className="text-sm font-large text-black-700 font-bold">{product.title}</h4>
                     <h5 className="text-lg font-medium ">${product.price}</h5>
                     <h6 className="no-underline hover:no-underline">{product.rating.rate}/5 of {product.rating.count} Reviews</h6> {/*Add stars to */}
                   </a>
                 </Link>
-                <button className="addToCart bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+                <button className="px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   onClick={() => addToCart(product)} >
                   Add To Cart
                 </button>
