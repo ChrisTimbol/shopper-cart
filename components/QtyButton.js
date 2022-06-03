@@ -21,6 +21,7 @@ const QtyButton = (props) => {
           {props.product.qty * props.product.price}{" "}
         </div>
       </div>
+      //test
     );
   };
   
