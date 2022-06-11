@@ -38,12 +38,13 @@ export default function cart() {
 
   return (
     <div className="Page-Container">
-      <div className="Product-Container">
+      
+      <div className="Product-Container ">
         {products.map((product, index) => {
           return (
             <div key={index}>
                             <button
-                className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full"
+                className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full my-3 "
                 onClick={() => {
                   setProducts(products.filter((x) => x.id !== product.id)); //filters out by product id clicked
                 }}>x</button>
@@ -54,7 +55,7 @@ export default function cart() {
                 width={300}
                 height={300}
               />
-              <h4 className="text-sm text-gray-700">{product.title}</h4>
+              <h4 className="text-sm text-gray-700 font-bold">{product.title}</h4>
               <h5 className="text-lg font-medium ">${product.price}</h5>
               <h6 className="no-underline hover:no-underline">
                 {product.rate}/5 of {product.count} Reviews
@@ -72,12 +73,14 @@ export default function cart() {
           )
         })}
       </div>
-      <button className="checkout-Button bg-blue-500 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded-full"
+      <div className="flex justify-center">
+      <button className="checkout-Button h-max bg-blue-500 hover:bg-blue-800 text-white font-bold py-4 my-2 px-6 rounded-full"
       onClick={() => {
         alert("Subtotal: $" + subTotal.toFixed(2))
       }}>
-        Checkout
+        CHECKOUT
       </button>
+      </div>
     </div>
   )
 }
