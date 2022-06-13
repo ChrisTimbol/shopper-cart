@@ -1,9 +1,9 @@
-import { useState, useContext, useEffect, useRef } from "react";
+//import { useState, useContext, useEffect} from "react";
 import Image from "next/image";
 import { setTotalContext } from "../pages/_app.js";
 import QtyButton from "../components/QtyButton";
 export default function cart() {
-  let setTotal = useContext(setTotalContext);
+  const setTotal = useContext(setTotalContext);
   const [products, setProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0); // the subtotal
 
