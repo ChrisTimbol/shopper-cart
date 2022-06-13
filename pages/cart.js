@@ -24,7 +24,7 @@ export default function Cart() {
   // Calculate subtotal whenever there is change in cart
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
-    setTotal(products.length)
+   // setTotal(products.length)
     setSubTotal(
       // Multiply all product's price with product's quantity and add
       products

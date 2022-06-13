@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
-import { setTotalContext } from "../pages/_app.js"
+import { setTotalContext} from "../pages/_app.js"
 
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
@@ -63,7 +63,7 @@ export default function Home({ data }) {
   useEffect(() => {
     // anytime there is a change to carter i want it to update the localstorage with carter
     localStorage.setItem("products", JSON.stringify(carter));
-    setTotal(carter.length) // when cart update settotal
+   // setTotal(carter.length) // when cart update settotal
   }, [carter]);
 
   return (
