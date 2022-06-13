@@ -1,12 +1,15 @@
 import { useState, useContext, useEffect} from "react"
 import Image from "next/image"
-//import { setTotalContext } from "../_app.js"
+import {setTotalContext}  from "./_app.js"
+import {getTotalContext}  from "./_app.js"
 import QtyButton from "../components/QtyButton"
+
 export default function Cart() {
- // const setTotal = useContext(setTotalContext);
+ 
   const [products, setProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0); // the subtotal
-
+  let setTotal = useContext(setTotalContext)
+  let getTotal = useContext(getTotalContext)
   // Change the qty of particular product
   const changeQty = (item, qty) => {
     setProducts(
@@ -23,8 +26,10 @@ export default function Cart() {
 
   // Calculate subtotal whenever there is change in cart
   useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-   // setTotal(products.length)
+
+    setTotal(products.length)
+    localStorage.setItem("products", JSON.stringify(products))
+    //setTotal("test")
     setSubTotal(
       // Multiply all product's price with product's quantity and add
       products
