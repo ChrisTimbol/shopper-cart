@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-export async function getStaticPaths() {
+export async function GetStaticPaths() {
   const res = await fetch("https://fakestoreapi.com/products")
   const products = await res.json()
   //Get the paths we want to pre-render based on products

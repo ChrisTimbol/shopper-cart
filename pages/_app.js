@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
-import React, { useState,createContext } from 'react'
+import { useState,createContext } from 'react'
 
 
-export const getTotalContext = createContext();
-export const setTotalContext = createContext();
+export const getTotalContext = createContext()
+export const setTotalContext = createContext()
+
 function MyApp({ Component, pageProps }) {
  // const [getCount, setCount] = useState(0);
   const [total, setTotal] = useState(0)
