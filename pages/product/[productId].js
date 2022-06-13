@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 export async function getStaticPaths() {
   const res = await fetch("https://fakestoreapi.com/products")
@@ -37,7 +38,7 @@ export default function Product({ product }) {
     <div className="flex flex-col" >
        
       <div className="flex mx-auto h-5/6 w-3/4 border-8 " key={product.id} href="#"> {/*Create dynamic links based on wahts clicked */}
-          <img class="object-contain max-w-md h-auto" src={product.image}></img>
+          <Image className="object-contain max-w-md h-auto" src={product.image} alt="productImage"/>
         <div className="AllText border-8 ">
           <h4 className="mt-4 text-xl font-medium text-black-900">{product.title}</h4>
           <h5 className="mt-1 text-lg font-medium text-gray-900">${product.price}</h5>
