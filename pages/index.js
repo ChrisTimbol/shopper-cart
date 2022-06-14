@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
 import { setTotalContext } from "../pages/_app.js"
-
+import ReactStars from 'react-stars'
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
   const data = await res.json()
@@ -74,12 +74,12 @@ export default function Home({ data }) {
 
       <div className="shopContainer mx-auto bg-white">
         <div className="max-w-2xl mx-auto py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          
+
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data.map((product, i) => (
               <div key={i} className="productContainer flex border-solid border-2 border-sky-100 flex-col">
 
-                <Link href={`/product/${product.id}`}>
+                <Link className="" href={`/product/${product.id}`}>
                   <a className="hover:opacity-90 hover:underline"> {/*Create dynamic links based on whats clicked */}
                     <Image
                       className=""
@@ -87,12 +87,20 @@ export default function Home({ data }) {
                       src={product.image}
                       width={400}
                       height={400} />
-                    <h4 className="text-sm text-black font-medium">{product.title}</h4>
-                    <h5 className="text-lg font-medium ">${product.price}</h5>
-                    <h6 className="no-underline hover:no-underline">{product.rating.rate}/5 of {product.rating.count} Reviews</h6> {/*Add stars to */}
+                    <h4 className=" text-black font-medium">{product.title}</h4>
+                    <h5 className="font-medium ">${product.price}</h5>
+                    <div className="flex">
+                      <ReactStars className=""
+                        count={5}
+                        value={product.rating.rate}
+                        size={24}
+                        color2={'#ffd700'}
+                        edit={false} />
+                      <div className="py-2 reviews flex justify-end decoration-slate-500 ml-1"> {product.rating.count} Reviews </div>
+                    </div>
                   </a>
                 </Link>
-                <button className=" hover:bg-violet-600 active:bg-violet-700 px-3 py-2 font-medium text-center text-white bg-purple-900 rounded-lg focus:outline-none focus:ring focus:ring-violet-300"
+                <button className=" hover:bg-violet-600 active:bg-violet-700 px-3 py-2 font-medium text-center text-white bg-purple-700 rounded-lg focus:outline-none focus:ring focus:ring-violet-300"
                   onClick={() => addToCart(product)} >
                   Add To Cart
                 </button>

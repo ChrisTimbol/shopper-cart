@@ -16,7 +16,7 @@ const QtyButton = (props) => {
 
       {/* Multiply individual product price with qty  */}
       <div className="">
-        <span className="font-bold ml-2   ">{props.product.qty}</span> x ${props.product.price} ={" "}
+        <span className="ml-2 font-medium underline decoration-pink-500  ">{props.product.qty}</span> x ${props.product.price} ={" "}
         ${props.product.qty * props.product.price}{" "}
       </div>
     </div>

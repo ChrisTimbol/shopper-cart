@@ -20,12 +20,12 @@ export default function NavBar() {
                         <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                             <li>
                                 <Link href="/">
-                                    <a className="items-center self-center text-m font-medium whitespace-nowrap dark:text-white">Shop</a>
+                                    <a className="text-xl text-white">Shop</a>
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/cart">
-                                    <a className="items-center self-center text-xl font-medium whitespace-nowrap dark:text-white">&#128722;
+                                    <a className=" text-xl whitespace-nowrap text-white">&#128722;
                                         {getTotal}</a>
                                 </Link>
                             </li>

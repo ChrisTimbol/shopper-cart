@@ -1,10 +1,11 @@
-import { useState, useContext, useEffect} from "react"
+import { useState, useContext, useEffect } from "react"
 import Image from "next/image"
-import {setTotalContext}  from "./_app.js"
-import {getTotalContext}  from "./_app.js"
+import { setTotalContext } from "./_app.js"
+import { getTotalContext } from "./_app.js"
 import QtyButton from "../components/QtyButton"
+import ReactStars from 'react-stars'
 export default function Cart() {
- 
+
   const [products, setProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0); // the subtotal
   let setTotal = useContext(setTotalContext)
@@ -37,13 +38,13 @@ export default function Cart() {
   }, [products])
 
   return (
-    <div className="Page-Container">
-      
+    <div className="Page-Container h-screen">
+
       <div className="Product-Container ">
         {products.map((product, index) => {
           return (
             <div key={index}>
-                            <button
+              <button
                 className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full my-3 "
                 onClick={() => {
                   setProducts(products.filter((x) => x.id !== product.id)); //filters out by product id clicked
@@ -57,14 +58,19 @@ export default function Cart() {
               />
               <h4 className="text-sm text-gray-700 font-bold">{product.title}</h4>
               <h5 className="text-lg font-medium ">${product.price}</h5>
-   
-              <h6 className="no-underline hover:no-underline">
-                {product.rate}/5 of {product.count} Reviews
-              </h6>{" "}
-              {/*Add stars to */}
-     
 
-             <QtyButton className=""
+              <div className="flex">
+                <ReactStars
+                  count={5}
+                  value={product.rate}
+                  size={24}
+                  color2={'#ffd700'}
+                  edit={false} />
+                <div className="py-2 reviews flex justify-end decoration-slate-500 ml-1"> {product.count} Reviews </div>
+              </div>
+
+
+              <QtyButton className=""
                 // Pass product and change qty function
                 product={product}
                 changeQty={changeQty}
@@ -75,12 +81,12 @@ export default function Cart() {
         })}
       </div>
       <div className="flex justify-center">
-      <button className="checkout-Button h-max bg-purple-900 hover:bg-purple-500 text-white font-bold py-4 my-2 px-12 rounded-full"
-      onClick={() => {
-        alert("Subtotal: $" + subTotal.toFixed(2))
-      }}>
-        CHECKOUT
-      </button>
+        <button className="checkout-Button h-max bg-purple-600 hover:bg-purple-400 text-white font-bold py-4 my-2 px-12 rounded-full"
+          onClick={() => {
+            alert("Subtotal: $" + subTotal.toFixed(2))
+          }}>
+          CHECKOUT
+        </button>
       </div>
     </div>
   )
