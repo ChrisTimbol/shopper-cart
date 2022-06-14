@@ -32,7 +32,7 @@ export default function Product({ product }) {
 
   //when add to cart is clicked get product.info and send to cart page
   return (
-    <div>
+    <div className="h-screen">
       <button className="hover:bg-purple-400 bg-purple-800 text-white text-xl font-bold ml-2 mt-2 py-2 px-4 rounded-full"
         onClick={() => router.back()}>🠔</button>
       <div className="flex flex-col" >
