@@ -33,7 +33,7 @@ export default function Product({ product }) {
   //when add to cart is clicked get product.info and send to cart page
   return (
     <div>
-      <button className="bg-blue-500 hover:bg-gray-500 text-white text-xl font-bold py-2 px-4 rounded-full"
+      <button className="hover:bg-purple-400 bg-purple-800 text-white text-xl font-bold ml-2 mt-2 py-2 px-4 rounded-full"
         onClick={() => router.back()}>🠔</button>
       <div className="flex flex-col" >
 
@@ -41,7 +41,7 @@ export default function Product({ product }) {
 
             <Image layout='intrinsic' width="900" height="900"  src={product.image} alt="productImage" />
 
-          <div>
+          <div className="">
             <div className="AllText border-8 ">
               <h4 className="mt-4 text-xl font-medium text-black-900">{product.title}</h4>
               <h5 className="mt-1 text-lg font-medium text-gray-900">${product.price}</h5>

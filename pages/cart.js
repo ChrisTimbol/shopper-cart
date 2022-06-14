@@ -3,7 +3,6 @@ import Image from "next/image"
 import {setTotalContext}  from "./_app.js"
 import {getTotalContext}  from "./_app.js"
 import QtyButton from "../components/QtyButton"
-
 export default function Cart() {
  
   const [products, setProducts] = useState([]);
@@ -29,7 +28,6 @@ export default function Cart() {
 
     setTotal(products.length)
     localStorage.setItem("products", JSON.stringify(products))
-    //setTotal("test")
     setSubTotal(
       // Multiply all product's price with product's quantity and add
       products
@@ -59,13 +57,14 @@ export default function Cart() {
               />
               <h4 className="text-sm text-gray-700 font-bold">{product.title}</h4>
               <h5 className="text-lg font-medium ">${product.price}</h5>
+   
               <h6 className="no-underline hover:no-underline">
                 {product.rate}/5 of {product.count} Reviews
               </h6>{" "}
               {/*Add stars to */}
      
 
-             <QtyButton className="block "
+             <QtyButton className=""
                 // Pass product and change qty function
                 product={product}
                 changeQty={changeQty}
@@ -76,7 +75,7 @@ export default function Cart() {
         })}
       </div>
       <div className="flex justify-center">
-      <button className="checkout-Button h-max bg-blue-500 hover:bg-blue-800 text-white font-bold py-4 my-2 px-6 rounded-full"
+      <button className="checkout-Button h-max bg-purple-900 hover:bg-purple-500 text-white font-bold py-4 my-2 px-12 rounded-full"
       onClick={() => {
         alert("Subtotal: $" + subTotal.toFixed(2))
       }}>
