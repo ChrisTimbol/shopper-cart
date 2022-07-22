@@ -12,9 +12,7 @@ I wanted to learn more about data fetching and how to display data on dynamic ur
 - you can only export one default function from a js file.
 
 
-## Screenshots
-![shoppercart1](https://user-images.githubusercontent.com/23703863/180578617-548297ff-3a19-4aae-a5a7-0788de7f0915.png)
-![shoppercart2](https://user-images.githubusercontent.com/23703863/180578746-3ce962e9-549a-45e6-b0b1-9299b789b272.png)
+
 
 ## Framework/Libraries used
  Built with 
@@ -23,3 +21,22 @@ I wanted to learn more about data fetching and how to display data on dynamic ur
  - TailwindCSS
  
 ## Screenshots
+![shoppercart1](https://user-images.githubusercontent.com/23703863/180578617-548297ff-3a19-4aae-a5a7-0788de7f0915.png)
+![shoppercart2](https://user-images.githubusercontent.com/23703863/180578746-3ce962e9-549a-45e6-b0b1-9299b789b272.png)
+
+## How to use?
+
+#### Check out live site at https://shopper-cart.vercel.app/
+#### or 
+
+You will need [Node.js](https://nodejs.org) version 8.0 or greater installed on your system.
+```
+npm install
+```
+Run the development server.
+```bash
+npm run dev
+# or
+yarn dev
+```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
