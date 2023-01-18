@@ -1,15 +1,13 @@
 import { useState, useContext, useEffect } from "react"
 import Image from "next/image"
-import { setTotalContext } from "./_app.js"
-import { getTotalContext } from "./_app.js"
+import { TotalContext } from "./_app.js"
 import QtyButton from "../components/QtyButton"
 import ReactStars from 'react-stars'
 export default function Cart() {
 
   const [products, setProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0); // the subtotal
-  let setTotal = useContext(setTotalContext)
-  let getTotal = useContext(getTotalContext)
+  const [total, setTotal] = useContext(TotalContext)
   // Change the qty of particular product
   const changeQty = (item, qty) => {
     setProducts(
