@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { getTotalContext, setTotalContext } from "../pages/_app.js"
+import { TotalContext } from "../pages/_app.js"
 import Link from 'next/link'
 export default function NavBar() {
 
-    let getTotal = useContext(getTotalContext);
+    const [total, setTotal] = useContext(TotalContext);
 
     return (
 
@@ -26,7 +26,7 @@ export default function NavBar() {
                             <li>
                                 <Link href="/cart">
                                     <a className=" text-xl whitespace-nowrap text-white">&#128722;
-                                        {getTotal}</a>
+                                        {total}</a>
                                 </Link>
                             </li>
                         </ul>

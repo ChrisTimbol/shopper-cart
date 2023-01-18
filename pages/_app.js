@@ -3,23 +3,19 @@ import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { useState,createContext } from 'react'
 
+export const TotalContext = createContext()
 
-export const getTotalContext = createContext()
-export const setTotalContext = createContext()
 
 function MyApp({ Component, pageProps }) {
- // const [getCount, setCount] = useState(0);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0) // shopping cart total
   return (
 
     <>
-      <getTotalContext.Provider value={total}>
-        <setTotalContext.Provider value={setTotal}>
+      <TotalContext.Provider value={ [total, setTotal]}>
           <NavBar />
           <Component {...pageProps} />
           <Footer />
-        </setTotalContext.Provider>
-      </getTotalContext.Provider>
+      </TotalContext.Provider>
     </>
   )
 }

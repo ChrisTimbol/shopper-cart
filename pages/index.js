@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useEffect, useState } from 'react';
-import { setTotalContext } from "../pages/_app.js"
+import { TotalContext } from "../pages/_app.js"
 import ReactStars from 'react-stars'
 export async function getStaticProps() { // called once at page reload to fetch store data
   const res = await fetch('https://fakestoreapi.com/products')
@@ -18,7 +18,7 @@ export async function getStaticProps() { // called once at page reload to fetch 
 
 export default function Home({ data }) {
   const [carter, setCarter] = useState([]) // add to cart list saved here
-  const setTotal = useContext(setTotalContext)
+  const [total, setTotal] = useContext(TotalContext)
 
   // This function run when we click add to cart button
   const addToCart = (product) => {
