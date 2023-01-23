@@ -5,7 +5,6 @@ import { useState,createContext } from 'react'
 
 export const TotalContext = createContext()
 
-
 function MyApp({ Component, pageProps }) {
   const [total, setTotal] = useState(0) // shopping cart total
   return (
@@ -14,7 +13,7 @@ function MyApp({ Component, pageProps }) {
       <TotalContext.Provider value={ [total, setTotal]}>
           <NavBar />
           <Component {...pageProps} />
-          <Footer />
+      
       </TotalContext.Provider>
     </>
   )
