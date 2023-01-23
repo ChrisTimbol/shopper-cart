@@ -12,8 +12,6 @@ I wanted to learn more about data fetching and how to display data on dynamic ur
 - you can only export one default function from a js file.
 
 
-
-
 ## Framework/Libraries used
  Built with 
  - React 
