@@ -3,6 +3,7 @@ import Image from "next/image"
 import { TotalContext } from "./_app.js"
 import QtyButton from "../components/QtyButton"
 import ReactStars from 'react-stars'
+import Footer from '../components/Footer'
 export default function Cart() {
 
   const [products, setProducts] = useState([]);
@@ -36,12 +37,12 @@ export default function Cart() {
   }, [products])
 
   return (
-    <div className="Page-Container h-screen">
+    <div className="Page-Container   h-screen">
 
-      <div className="Product-Container ">
+      <div className="Product-Container flex flex-col">
         {products.map((product, index) => {
           return (
-            <div key={index}>
+            <div key={index} className="mx-auto ">
               <button
                 className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full my-3 "
                 onClick={() => {
@@ -55,7 +56,7 @@ export default function Cart() {
                 height={300}
               />
               <h4 className="text-sm text-gray-700 font-bold">{product.title}</h4>
-              <h5 className="text-lg font-medium ">${product.price}</h5>
+              <h5 className="text-md ">${product.price}</h5>
 
               <div className="flex">
                 <ReactStars
@@ -86,6 +87,7 @@ export default function Cart() {
           CHECKOUT
         </button>
       </div>
+      <Footer />
     </div>
   )
 }
