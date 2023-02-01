@@ -7,6 +7,7 @@ I wanted to learn more about data fetching and how to display data on dynamic ur
 
 ## What I Learned
 - Context API can be used for managing global state
+- Environment variables for hiding api key etc.., varies where to initialize them such as in vercel, or in a file
 - Nextjs can dynamically generate urls very simply with getStaticPaths()
 - filter array method is a good way to remove objects from a array
 - you can only export one default function from a js file.
