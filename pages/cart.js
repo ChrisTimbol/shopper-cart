@@ -42,7 +42,7 @@ export default function Cart() {
       <div className="Product-Container flex flex-col">
         {products.map((product, index) => {
           return (
-            <div key={index} className="mx-auto ">
+            <div key={index} className="w-10/12 mx-auto">
               <button
                 className="block bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-full my-3 "
                 onClick={() => {
@@ -55,7 +55,7 @@ export default function Cart() {
                 width={300}
                 height={300}
               />
-              <h4 className="text-sm text-gray-700 font-bold">{product.title}</h4>
+              <h4 className="text-sm  text-gray-700 font-bold">{product.title}</h4>
               <h5 className="text-md ">${product.price}</h5>
 
               <div className="flex">
@@ -68,7 +68,6 @@ export default function Cart() {
                 <div className="py-2 reviews flex justify-end decoration-slate-500 ml-1"> {product.count} Reviews </div>
               </div>
 
-
               <QtyButton className=""
                 // Pass product and change qty function
                 product={product}
@@ -78,7 +77,9 @@ export default function Cart() {
 
           )
         })}
+
       </div>
+<div className="total text-center font-bold ">Total = ${subTotal.toFixed(2)}</div>
       <div className="flex justify-center">
         <button className="checkout-Button h-max bg-purple-600 hover:bg-purple-400 text-white font-bold py-4 my-2 px-12 rounded-full"
           onClick={() => {
