@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { TotalContext } from "../pages/_app.js"
 import Link from 'next/link'
 export default function NavBar() {
 
-    const [total, setTotal] = useContext(TotalContext);
+    const [total, setTotal] = useContext(TotalContext); /* Context */
 
     return (
-
         <>
             <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-purple-800">
                 <div className="container flex flex-wrap justify-between items-center mx-auto">
