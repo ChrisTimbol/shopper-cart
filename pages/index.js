@@ -73,11 +73,12 @@ export default function Home({ data }) {
       </Head>
 
       <div className="shopContainer mx-auto bg-white">
-        <div className="max-w-2xl mx-auto  py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        
+        <div className="productContainer max-w-2xl mx-auto  py-8 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
 
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          <div className="productSpacingContainer grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {data.map((product, i) => (
-              <div key={i} className="productContainer text-center  flex border-solid border-2 border-sky-100 flex-col">
+              <div key={i} className="productContainer text-center flex border-solid border-2 border-sky-100 flex-col">
 
                 <Link className="" href={`/product/${product.id}`}>
                   <a className="hover:opacity-90 hover:underline my-auto "> {/*Create dynamic links based on whats clicked */}

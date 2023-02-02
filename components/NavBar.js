@@ -7,7 +7,7 @@ export default function NavBar() {
 
     return (
         <>
-            <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5  bg-purple-800 ">
+            <nav className="border-gray-200 px-2 sm:px-4 py-2.5  bg-purple-800 ">
                 <div className="container flex flex-wrap justify-between items-center mx-auto">
                     <Link href="/">
                         <a className="flex items-center self-center text-xl font-semibold whitespace-nowrap dark:text-white">
@@ -15,7 +15,7 @@ export default function NavBar() {
                         </a>
                     </Link>
 
-                    <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium"> {/* Right side of NavBar */}
+                    <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium"> {/* Right sidenav */}
                         <li>
                             <Link href="/">
                                 <a className="text-xl text-white">Shop</a>
