@@ -105,7 +105,7 @@ export default function Home({ data }) {
                   Add To Cart
                 </button>
 
-              </div> // end of productontainer
+              </div> // end of productcontainer
             ))}
           </div>
         </div>

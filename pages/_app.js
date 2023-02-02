@@ -1,30 +1,18 @@
 import '../styles/globals.css'
 import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
-import { useState,createContext } from 'react'
+import { useState, createContext } from 'react'
 
-export const TotalContext = createContext()
+export const TotalContext = createContext() // Initalize a Context object
 
 function MyApp({ Component, pageProps }) {
   const [total, setTotal] = useState(0) // shopping cart total
   return (
-
     <>
-      <TotalContext.Provider value={ [total, setTotal]}>
-          <NavBar />
-          <Component {...pageProps} />
-      
+      <TotalContext.Provider value={[total, setTotal]}> {/* allows consuming components to subscribe to context values */}
+        <NavBar /> 
+        <Component {...pageProps} /> {/* active page */}
       </TotalContext.Provider>
     </>
   )
 }
-
 export default MyApp
-
-/*
-
-add product total
-clean up code and understand everything properly
-organize shopcart structure
-split into more components
-*/
